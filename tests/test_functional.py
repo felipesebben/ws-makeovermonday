@@ -54,3 +54,17 @@ def test_check_webpage_table(driver):
     
     table = driver.find_element(By.XPATH, "//table") 
     assert table.is_displayed() == True
+
+def test_check_webpage_table_row(driver):
+    """
+    Test to check the table on the page.
+
+    Args:
+        driver (WebDriver): Chrome WebDriver in headless mode
+    """
+    driver.get("https://www.worldometers.info/world-population/population-by-country/")
+    sleep(2)
+    
+    table = driver.find_element(By.XPATH, "//table") 
+    rows = table.find_elements(By.TAG_NAME, "tr")
+    assert len(rows) > 0
