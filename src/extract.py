@@ -62,8 +62,11 @@ class Extract:
         rows = table.find_elements(By.TAG_NAME, "tr")
         table_rows = []
         for row in rows:
-            print(row.text)
-            table_rows.append(row.text)
+            cell = row.find_elements(By.TAG_NAME, "td")
+            cell_texts = [cell.text for cell in cell]
+
+            table_rows.append(cell_texts) 
+         
         return table_rows        
 
     def close_driver(self):
