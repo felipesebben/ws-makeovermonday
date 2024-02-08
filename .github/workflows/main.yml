@@ -1,17 +1,37 @@
-repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
-    hooks:
-    -   id: check-yaml
-    -   id: end-of-file-fixer
-    -   id: trailing-whitespace
--   repo: https://github.com/psf/black
-    rev: 22.10.0
-    hooks:
-    -   id: black
+name: ci
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1  # Use the latest version
-    hooks:
-      - id: check-added-large-files
-        args: ['--maxkb=5000']  # Replace 500 with your desired max file size in KB
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9","3.10","3.11","3.12"]
+
+    steps:
+      - name: Copia os arquivos do repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar o Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version}}
+
+      - name: Instalar Poetry
+        run: pip install -r requirements.txt
+
+      - name: Rodar os testes
+        run: pytest tests/test_unit.py
+
+      - name: Rodar os testes
+        run: echo hello world!
+
+      - name: Segundo Passo
+        run: echo $(ls)
+
+      - name: Terceiro passo
+        run: echo $(pwd)
