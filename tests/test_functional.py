@@ -1,11 +1,11 @@
-from time import sleep
 import os
+from time import sleep
 
+import pandas as pd
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-import pandas as pd
 
 from src.extract import Extract
 
